@@ -1,13 +1,29 @@
+-- Main module for the Hello World plugin
 local M = {}
 
-function M.sayHello()
-    print("Hello World")
+-- Function to print the hello message
+function M.say_hello()
+  print("Hello from Neovim!")
 end
 
+-- Function to set up the plugin (Most package managers expect the plugin to have a setup function)
 function M.setup(opts)
-    opts = opts or {}
+  -- Merge user options with defaults
+  opts = opts or {}
 
-    vim.api.nvim_create_user_command("HelloWorld", M.sayHello, {})
+  -- Create the user command
+  vim.api.nvim_create_user_command("HelloWorld", M.say_hello, {})
+
+  -- Set up a key mapping
+  -- Use opts.keymap if provided, otherwise default to '<leader>hw'
+  local keymap = opts.keymap or '<leader>hw'
+
+  -- Create the keymap
+  vim.keymap.set('n', keymap, M.say_hello, { 
+    desc = "Say hello from our plugin",
+    silent = true  -- Prevents the command from being echoed in the command line
+  })
 end
 
+-- Return the module
 return M
