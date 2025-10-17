@@ -8,8 +8,8 @@ function M.say_hello()
   local content = { 'Hello World!' }
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, content)
 
-  local width = vim.api.nvim_get_option_value("columns")
-  local height = vim.api.nvim_get_option_value("lines")
+  local width = vim.api.nvim_get_option_value("columns", {})
+  local height = vim.api.nvim_get_option_value("lines", {})
 
    -- Calculate floating window size and position
   local win_height = math.ceil(height * 0.8 - 4)
