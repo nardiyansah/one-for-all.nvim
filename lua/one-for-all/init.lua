@@ -8,4 +8,4 @@ local colors = pickers.new({
   }
 })
 
-return colors.find()
+return colors:find()
