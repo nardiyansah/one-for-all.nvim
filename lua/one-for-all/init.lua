@@ -9,7 +9,11 @@ local CommandList = {
   {
     prefix = "Test",
     usage = "Print test",
-    cmd = function() vim.notify("Hello from One-for-All!") end
+    cmd = function() 
+      vim.notify("Hello from One-for-All!", vim.log.levels.INFO)
+      print("Hello from One-for-All! (print)")
+      vim.cmd("echo 'Hello from One-for-All! (echo)'")
+    end
   }
 }
 
@@ -52,8 +56,16 @@ function M.colors(opts)
       actions.select_default:replace(function ()
         local entry = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
-        vim.notify("Command selected: " .. entry.value.usage)
-        entry.cmd()
+        
+        -- Schedule the execution to happen after telescope closes
+        vim.schedule(function()
+          vim.notify("Command selected: " .. entry.value.usage, vim.log.levels.INFO)
+          if entry.cmd then
+            entry.cmd()
+          else
+            vim.notify("Error: No cmd function found", vim.log.levels.ERROR)
+          end
+        end)
       end)
       return true
     end,
