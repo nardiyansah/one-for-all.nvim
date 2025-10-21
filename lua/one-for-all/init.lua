@@ -1,11 +1,13 @@
 local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 
-local colors = pickers.new({
+local colors = function ()
+  pickers.new({
   prompt_title = "colors",
   finder = finders.new_table {
-    results = { "red", "green", "blue" }
+    results = { "red", "green", "blue"}
   }
-})
+}):find()
+end
 
-return colors:find()
+return colors
