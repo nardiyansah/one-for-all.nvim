@@ -9,7 +9,7 @@ local CommandList = {
   {
     prefix = "Test",
     usage = "Print test",
-    cmd = print("Hello")
+    cmd = function() print("Hello") end
   }
 }
 
@@ -43,7 +43,8 @@ function M.colors(opts)
         return {
           value = entry,
           display = entry.prefix .. " : " .. entry.usage,
-          ordinal = entry.usage
+          ordinal = entry.usage,
+          cmd = entry.cmd
         }
       end
     },
