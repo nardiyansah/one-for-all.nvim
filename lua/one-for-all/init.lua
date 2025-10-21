@@ -52,6 +52,7 @@ function M.colors(opts)
       actions.select_default:replace(function ()
         local entry = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
+        print("yuhu")
         entry.cmd()
       end)
       return true
