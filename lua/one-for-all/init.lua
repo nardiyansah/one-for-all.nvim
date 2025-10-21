@@ -36,7 +36,7 @@ function M.colors(opts)
   pickers.new(opts, {
     prompt_title = "Commands",
     finder = finders.new_table {
-      results = get_command_list,
+      results = get_command_list(),
       entry_maker = function (entry)
         return {
           value = entry,
