@@ -9,7 +9,7 @@ local CommandList = {
   {
     prefix = "Test",
     usage = "Print test",
-    cmd = function() print("Hello") end
+    cmd = function() vim.notify("Hello from One-for-All!") end
   }
 }
 
@@ -52,7 +52,7 @@ function M.colors(opts)
       actions.select_default:replace(function ()
         local entry = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
-        print("yuhu")
+        vim.notify("Command selected: " .. entry.value.usage)
         entry.cmd()
       end)
       return true
