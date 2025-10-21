@@ -1,13 +1,19 @@
 local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
+local conf = require("telescope.config").values
 
-local colors = function ()
-  pickers.new({
-  prompt_title = "colors",
-  finder = finders.new_table {
-    results = { "red", "green", "blue"}
-  }
-}):find()
+local M = {}
+
+function M.colors(opts)
+  opts = opts or {}
+  
+  pickers.new(opts, {
+    prompt_title = "Colors",
+    finder = finders.new_table {
+      results = { "red", "green", "blue" }
+    },
+    sorter = conf.generic_sorter(opts),
+  }):find()
 end
 
-return colors
+return M
