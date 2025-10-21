@@ -20,6 +20,8 @@ end
 local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local conf = require("telescope.config").values
+local actions = require "telescope.actions"
+local action_state = require "telescope.actions.state"
 
 local M = {}
 
@@ -45,6 +47,14 @@ function M.colors(opts)
         }
       end
     },
+    attach_mappings = function (prompt_bufnr, map)
+      actions.select_default:replace(function ()
+        local entry = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        entry.cmd()
+      end)
+      return true
+    end,
     sorter = conf.generic_sorter(opts),
   }):find()
 end
