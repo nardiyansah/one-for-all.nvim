@@ -56,16 +56,7 @@ function M.colors(opts)
       actions.select_default:replace(function ()
         local entry = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
-        
-        -- Schedule the execution to happen after telescope closes
-        vim.schedule(function()
-          vim.notify("Command selected: " .. entry.value.usage, vim.log.levels.INFO)
-          if entry.cmd then
-            entry.cmd()
-          else
-            vim.notify("Error: No cmd function found", vim.log.levels.ERROR)
-          end
-        end)
+        vim.cmd("Telescope find_files")
       end)
       return true
     end,
