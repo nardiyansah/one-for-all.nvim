@@ -1,5 +1,5 @@
 return require("telescope").register_extension {
    exports = {
-    command_palletes = require("one-for-all").command_palletes
+    one_for_all = require("one-for-all").command_palletes
    } 
 }
