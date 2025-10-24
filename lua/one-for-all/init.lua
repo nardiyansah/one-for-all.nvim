@@ -7,12 +7,10 @@ local Command = {}
 ---@type Command[]
 local CommandList = {
   {
-    prefix = "Test",
-    usage = "Print test",
+    prefix = "Telescope",
+    usage = "Find Files",
     cmd = function() 
-      vim.notify("Hello from One-for-All!", vim.log.levels.INFO)
-      print("Hello from One-for-All! (print)")
-      vim.cmd("echo 'Hello from One-for-All! (echo)'")
+     require('telescope.builtin').find_files()
     end
   }
 }
@@ -36,8 +34,8 @@ function M.setup(opts)
   -- For now, this is just a placeholder to prevent the error
 end
 
-function M.colors(opts)
-  opts = opts or {}
+function M.command_palletes(opts)
+  opts = opts or require('telescope.themes').get_dropdown{}
   
   pickers.new(opts, {
     prompt_title = "Commands",
@@ -56,7 +54,13 @@ function M.colors(opts)
       actions.select_default:replace(function ()
         local entry = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
-        vim.cmd("Telescope find_files")
+        vim.schedule(function ()
+          if entry.cmd then
+            entry.cmd()
+          else
+             vim.notify("Error: No cmd function found", vim.log.levels.ERROR)
+          end
+        end)
       end)
       return true
     end,
