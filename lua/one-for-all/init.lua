@@ -12,6 +12,14 @@ local CommandList = {
     cmd = function() 
      require('telescope.builtin').find_files()
     end
+  },
+  {
+    prefix = "Telescope",
+    usage = "Find Project",
+    cmd = function ()
+      local project_actions = require("telescope._extensions.project.actions")
+      project_actions.find_project_files()
+    end
   }
 }
 
